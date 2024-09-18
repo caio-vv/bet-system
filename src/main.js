@@ -1,3 +1,4 @@
+import "dotenv/config"
 import express from "express"
 import user_router from "./http/routers/user-route.js"
 import roulette_router from "./http/routers/roullete-bet-route.js"
@@ -7,7 +8,7 @@ import jackpotBet_router from "./http/routers/jackpot-bet-route.js"
 import competitor_router from "./http/routers/competitor-route.js"
 
 const app = express()
-const port = 5000
+const port = process.env.API_PORT
 
 app.use(express.json())
 app.use("/user", user_router);
