@@ -56,12 +56,7 @@ const userSchema = new Schema({
       },
       password: {
         type: Schema.Types.String,
-        required: true,
-        validate: {
-            validator(v) {
-                return /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/.test(v)
-            }
-        }
+        required: true
       },
       wallet: {
         wallet: walletSchema,

@@ -1,11 +1,12 @@
 import db from "../database/db.js"
-import Bet from "../database/bet-schema.js"
+import betSchema from "../database/bet-schema.js"
 const Schema = db.Schema 
 
 const jackpotBetSchema = new Schema({
-  bet: {
-    bet: Bet
-  },
+  bet: betSchema,
+  numbers: {
+    type: [Schema.Types.Number]
+  }
 })
 
 const JackpotBet = db.model("JackpotBet", jackpotBetSchema)

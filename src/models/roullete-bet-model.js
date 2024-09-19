@@ -1,17 +1,17 @@
 import db from "../database/db.js"
-import Bet from "../database/bet-schema.js"
+import betSchema from "../database/bet-schema.js"
 const Schema = db.Schema 
 
 const rouletteBetSchema = new Schema({
-  bet: Bet,
+  bet: betSchema,
   betNumber: {
-    betNumber: Schema.Types.BigInt,
+    type: Schema.Types.Number,
     min: 1,
     max: 100,
     required: true
   },
   drawnNumber: {
-    betNumber: Schema.Types.BigInt,
+    type: Schema.Types.Number,
     min: 1,
     max: 100,
     required: true

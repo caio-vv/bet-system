@@ -1,45 +1,44 @@
-import RouletteBet from "../../models/roullete-bet-model";
+import RoulleteBet from "../../models/roullete-bet-model.js";
 
-const store = (req, res) => {
+const store = async (req, res) => {
   try {
-    req.body.betNumber == parseInt(req.body.betNumber)
+    req.body.betNumber = parseInt(req.body.betNumber);
     req.body.drawnNumber = Math.ceil(Math.random() * 100);
 
-    if(drawnNumber == parseInt(req.body.betNumber)){
-        req.body.bet.status = "WINNER"
-    }else {
-        req.body.bet.status = "LOSER"
-    }
+    req.body.drawnNumber == req.body.betNumber
+      ? (req.body.bet.status = "WON")
+      : (req.body.bet.status = "LOST");
 
-    RouletteBet.create(req.body);
+    await RoulleteBet.create(req.body);
     res.json();
   } catch (error) {
-    res.status(400);
+    res.status(400).json(error);
   }
 };
 
 const index = async (req, res) => {
   try {
-    const content = await RouletteBet.find(req.query).exec();
+    const content = await RoulleteBet.find(req.query).exec();
     res.json(content);
   } catch (error) {
+    console.log(error);
     res.status(400).json(error);
   }
 };
 
 const show = async (req, res) => {
   try {
-    const content = await RouletteBet.findById(req.query).exec();
+    const content = await RoulleteBet.findById(req.params.id).exec();
     res.json(content);
   } catch (error) {
     res.status(400).json(error);
   }
 };
 
-const updated = async (req, res) => {
+const update = async (req, res) => {
   try {
-    const content = await RouletteBet.findByIdAndUpdate(req.query).exec();
-    res.json(content);
+    await RoulleteBet.findByIdAndUpdate(req.params.id).exec();
+    res.json();
   } catch (error) {
     res.status(400).json(error);
   }
@@ -49,5 +48,5 @@ export default {
   store,
   index,
   show,
-  updated,
+  update,
 };

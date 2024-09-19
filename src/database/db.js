@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const mongoDB = process.env.MONGODB;
-const database = process.env.DATABASE;
+const mongoDB = "mongodb://localhost:27017";
+const database = "/bet";
 
 const main = async () => {
   try {

@@ -1,23 +1,16 @@
-import JackpotBet from "../../models/jackpot-bet-model"
-
+import JackpotBet from "../../models/jackpot-bet-model.js";
 
 const store = (req, res) => {
     try {
-      function gerarNumeros() {
-          const numeros = new Set()
-          while (numeros.size < 3 ){
-              const numero = Math.floor(Math.random() * 9) + 1
-              numeros.add(numero)
-          }
-          return Array.from(numeros)
-      }
-      gerarNumeros()
-    if(gerarNumeros[0] === gerarNumeros[1] && gerarNumeros[1] === gerarNumeros[2]){
-        req.body.bet.status = "WINNER"
-    }else {
-        req.body.bet.status = "LOSER"
-    }
-
+        const a = Math.floor(Math.random() * 10);
+        const b = Math.floor(Math.random() * 10);
+        const c = Math.floor(Math.random() * 10);
+    
+        a == b && b == c
+          ? (req.body.bet.status = "WON")
+          : (req.body.bet.status = "LOST");
+    
+        req.body.numbers = [a, b, c];
     JackpotBet.create(req.body);
     res.json();
   } catch (error) {
@@ -43,7 +36,7 @@ const show = async (req, res) => {
   }
 };
 
-const updated = async (req, res) => {
+const update = async (req, res) => {
   try {
     const content = await JackpotBet.findByIdAndUpdate(req.query).exec();
     res.json(content);
@@ -56,6 +49,6 @@ export default {
   store,
   index,
   show,
-  updated,
+  update,
 };
 
